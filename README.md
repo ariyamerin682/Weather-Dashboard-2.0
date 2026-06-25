@@ -83,16 +83,3 @@ A full-stack weather dashboard application that allows users to search for citie
   notes: String          // Optional notes
 }
 
-## 📦 Clone & Install
-
-### Clone the Repository
-
-```bash
-# Clone using HTTPS
-git clone https://github.com/yourusername/weather-dashboard.git
-
-# Or clone using SSH
-git clone git@github.com:yourusername/weather-dashboard.git
-
-# Navigate to project directory
-cd weather-dashboard
