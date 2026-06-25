@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'https://weather-dashboard-2-0.onrender.com/api';
 const WEATHER_API_KEY = '419f904644f31fd8feb98133c859472f';
 const WEATHER_BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 export async function fetchWeather(city) {
