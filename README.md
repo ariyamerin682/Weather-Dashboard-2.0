@@ -2,7 +2,6 @@
 
 A full-stack weather dashboard application that allows users to search for cities, view current weather conditions, and track search history with an interactive map.
 
-![Weather Dashboard](https://via.placeholder.com/800x400?text=Weather+Dashboard+Screenshot)
 
 ## 🏷️ Tech Stack
 
