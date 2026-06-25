@@ -25,3 +25,37 @@ A full-stack weather dashboard application that allows users to search for citie
 - RESTful API design
 
 ## 📁 Project Structure
+
+mustack2/
+├── frontend/
+│ ├── index.html # Main HTML file
+│ ├── css/
+│ │ └── style.css # All styles
+│ └── js/
+│ ├── app.js # Main app logic
+│ ├── api.js # API calls
+│ └── ui.js # UI rendering
+├── backend/
+│ ├── server.js # Express server
+│ ├── models/ # MongoDB schemas
+│ ├── routes/ # API routes
+│ ├── controllers/ # Business logic
+│ └── middleware/ # Custom middleware
+├── .gitignore
+└── README.md
+
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- MongoDB (local or Atlas)
+- OpenWeatherMap API key
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/ariyamerin682/Weather-Dashboard-2.0.git
+cd Weather-Dashboard-2.0
