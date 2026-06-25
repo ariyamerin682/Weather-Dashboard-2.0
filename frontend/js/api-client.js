@@ -1,12 +1,9 @@
-// API Client for communicating with backend
 const API_BASE = 'http://localhost:5000/api';
-
 export async function getCities() {
     const response = await fetch(`${API_BASE}/cities`);
     if (!response.ok) throw new Error('Failed to fetch cities');
     return response.json();
 }
-
 export async function getCity(name) {
     const response = await fetch(`${API_BASE}/cities/${encodeURIComponent(name)}`);
     if (!response.ok) {
@@ -15,7 +12,6 @@ export async function getCity(name) {
     }
     return response.json();
 }
-
 export async function createCity(cityData) {
     const response = await fetch(`${API_BASE}/cities`, {
         method: 'POST',
@@ -25,7 +21,6 @@ export async function createCity(cityData) {
     if (!response.ok) throw new Error('Failed to create city');
     return response.json();
 }
-
 export async function updateCity(id, updates) {
     const response = await fetch(`${API_BASE}/cities/${id}`, {
         method: 'PUT',
@@ -35,7 +30,6 @@ export async function updateCity(id, updates) {
     if (!response.ok) throw new Error('Failed to update city');
     return response.json();
 }
-
 export async function deleteCity(id) {
     const response = await fetch(`${API_BASE}/cities/${id}`, {
         method: 'DELETE'
@@ -49,7 +43,6 @@ export async function getFavorites() {
     if (!response.ok) throw new Error('Failed to fetch favorites');
     return response.json();
 }
-
 export async function logSearch(searchData) {
     const response = await fetch(`${API_BASE}/searches`, {
         method: 'POST',
@@ -59,13 +52,11 @@ export async function logSearch(searchData) {
     if (!response.ok) throw new Error('Failed to log search');
     return response.json();
 }
-
 export async function getRecentSearches() {
     const response = await fetch(`${API_BASE}/searches`);
     if (!response.ok) throw new Error('Failed to fetch searches');
     return response.json();
 }
-
 export async function getSearchStats() {
     const response = await fetch(`${API_BASE}/searches/stats`);
     if (!response.ok) throw new Error('Failed to fetch stats');
