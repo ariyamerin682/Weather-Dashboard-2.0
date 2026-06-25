@@ -26,23 +26,37 @@ A full-stack weather dashboard application that allows users to search for citie
 
 ## 📁 Project Structure
 
-mustack2/
-├── frontend/
-│ ├── index.html # Main HTML file
-│ ├── css/
-│ │ └── style.css # All styles
-│ └── js/
-│ ├── app.js # Main app logic
-│ ├── api.js # API calls
-│ └── ui.js # UI rendering
-├── backend/
-│ ├── server.js # Express server
-│ ├── models/ # MongoDB schemas
-│ ├── routes/ # API routes
-│ ├── controllers/ # Business logic
-│ └── middleware/ # Custom middleware
-├── .gitignore
-└── README.md
+weather-dashboard/                           ← Root folder
+│
+├── .gitignore                               ← Git ignore file
+├── README.md                                ← Project documentation
+├── LICENSE                                  ← (Optional) License file
+│
+├── frontend/                                ← Frontend application
+│   ├── index.html                          ← Main HTML page
+│   ├── css/
+│   │   └── style.css                       ← All styles
+│   └── js/
+│       ├── app.js                          ← Main app logic
+│       ├── api.js                          ← API calls (weather + backend)
+│       └── ui.js                           ← UI rendering functions
+│
+└── backend/                                 ← Backend API
+    ├── server.js                           ← Express server entry point
+    ├── package.json                        ← Dependencies list
+    ├── package-lock.json                   ← Locked dependency versions
+    ├── .env.example                        ← Environment variables template
+    ├── models/                             ← MongoDB schemas
+    │   ├── City.js                         ← City model
+    │   └── Search.js                       ← Search history model
+    ├── routes/                             ← API routes
+    │   ├── cities.js                       ← City routes
+    │   └── searches.js                     ← Search history routes
+    ├── controllers/                        ← Business logic
+    │   ├── cityController.js               ← City logic
+    │   └── searchController.js             ← Search logic
+    └── middleware/                         ← Custom middleware
+        └── auth.js                         ← API key validation (optional)
 
 
 ## 🚀 Getting Started
