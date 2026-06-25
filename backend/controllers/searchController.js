@@ -1,12 +1,8 @@
 const Search = require('../models/Search');
-
-// GET: Recent searches
 exports.getRecentSearches = async (req, res) => {
     try {
         const { limit = 10 } = req.query;
-        
         const searches = await Search.getRecentSearches(parseInt(limit));
-        
         res.json({
             success: true,
             count: searches.length,
@@ -20,12 +16,9 @@ exports.getRecentSearches = async (req, res) => {
         });
     }
 };
-
-// POST: Log a search
 exports.logSearch = async (req, res) => {
     try {
         const { city, country, temperature, condition, successful, errorMessage } = req.body;
-        
         const search = new Search({
             city,
             country,
@@ -36,7 +29,6 @@ exports.logSearch = async (req, res) => {
             ipAddress: req.ip || req.connection.remoteAddress,
             userAgent: req.headers['user-agent']
         });
-        
         await search.save();
         
         res.status(201).json({
@@ -52,12 +44,9 @@ exports.logSearch = async (req, res) => {
         });
     }
 };
-
-// GET: Search stats
 exports.getSearchStats = async (req, res) => {
     try {
         const stats = await Search.getSearchStats();
-        
         res.json({
             success: true,
             data: stats
@@ -70,12 +59,9 @@ exports.getSearchStats = async (req, res) => {
         });
     }
 };
-
-// DELETE: Clear search history
 exports.clearSearchHistory = async (req, res) => {
     try {
         await Search.deleteMany({});
-        
         res.json({
             success: true,
             message: 'Search history cleared'
