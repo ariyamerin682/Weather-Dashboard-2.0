@@ -2,10 +2,13 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
+
 app.use(cors());
 app.use(express.json());
+
 app.get('/api/health', (req, res) => {
     res.json({
         status: 'OK',
@@ -14,6 +17,7 @@ app.get('/api/health', (req, res) => {
         timestamp: new Date().toISOString()
     });
 });
+
 app.get('/api/test', (req, res) => {
     res.json({
         message: 'API is working!',
@@ -34,49 +38,52 @@ app.get('/api/test', (req, res) => {
         timestamp: new Date().toISOString()
     });
 });
+
 let cities = [
-    { 
-        id: 1, 
-        name: 'London', 
-        country: 'UK', 
-        lat: 51.5074, 
-        lon: -0.1278, 
+    {
+        id: 1,
+        name: 'London',
+        country: 'UK',
+        lat: 51.5074,
+        lon: -0.1278,
         isFavorite: true,
         searchCount: 15,
         lastSearched: new Date()
     },
-    { 
-        id: 2, 
-        name: 'Tokyo', 
-        country: 'Japan', 
-        lat: 35.6762, 
-        lon: 139.6503, 
+    {
+        id: 2,
+        name: 'Tokyo',
+        country: 'Japan',
+        lat: 35.6762,
+        lon: 139.6503,
         isFavorite: false,
         searchCount: 8,
         lastSearched: new Date()
     },
-    { 
-        id: 3, 
-        name: 'New York', 
-        country: 'USA', 
-        lat: 40.7128, 
-        lon: -74.0060, 
+    {
+        id: 3,
+        name: 'New York',
+        country: 'USA',
+        lat: 40.7128,
+        lon: -74.0060,
         isFavorite: true,
         searchCount: 12,
         lastSearched: new Date()
     },
-    { 
-        id: 4, 
-        name: 'Paris', 
-        country: 'France', 
-        lat: 48.8566, 
-        lon: 2.3522, 
+    {
+        id: 4,
+        name: 'Paris',
+        country: 'France',
+        lat: 48.8566,
+        lon: 2.3522,
         isFavorite: false,
         searchCount: 6,
         lastSearched: new Date()
     }
 ];
+
 let nextId = 5;
+
 app.get('/api/cities', (req, res) => {
     const { limit = 10, sort = 'name' } = req.query;
     let sortedCities = [...cities];
@@ -88,13 +95,13 @@ app.get('/api/cities', (req, res) => {
         sortedCities.sort((a, b) => new Date(b.lastSearched) - new Date(a.lastSearched));
     }
     sortedCities = sortedCities.slice(0, parseInt(limit));
-    
     res.json({
         success: true,
         count: sortedCities.length,
         data: sortedCities
     });
 });
+
 app.get('/api/cities/favorites', (req, res) => {
     const favorites = cities.filter(city => city.isFavorite);
     res.json({
@@ -103,6 +110,7 @@ app.get('/api/cities/favorites', (req, res) => {
         data: favorites
     });
 });
+
 app.get('/api/cities/popular', (req, res) => {
     const popular = [...cities]
         .sort((a, b) => b.searchCount - a.searchCount)
@@ -112,8 +120,9 @@ app.get('/api/cities/popular', (req, res) => {
         data: popular
     });
 });
+
 app.get('/api/cities/:name', (req, res) => {
-    const city = cities.find(c => 
+    const city = cities.find(c =>
         c.name.toLowerCase() === req.params.name.toLowerCase()
     );
     if (!city) {
@@ -127,9 +136,10 @@ app.get('/api/cities/:name', (req, res) => {
         data: city
     });
 });
+
 app.post('/api/cities', (req, res) => {
     const { name, country, lat, lon, isFavorite = false } = req.body;
-    const existing = cities.find(c => 
+    const existing = cities.find(c =>
         c.name.toLowerCase() === name.toLowerCase()
     );
     if (existing) {
@@ -143,7 +153,8 @@ app.post('/api/cities', (req, res) => {
             message: 'City updated',
             data: existing
         });
-    } 
+    }
+    const newCity = {
         id: nextId++,
         name,
         country: country || 'Unknown',
@@ -160,6 +171,7 @@ app.post('/api/cities', (req, res) => {
         data: newCity
     });
 });
+
 app.put('/api/cities/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const cityIndex = cities.findIndex(c => c.id === id);
@@ -185,6 +197,7 @@ app.put('/api/cities/:id', (req, res) => {
         data: cities[cityIndex]
     });
 });
+
 app.delete('/api/cities/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const cityIndex = cities.findIndex(c => c.id === id);
@@ -201,7 +214,9 @@ app.delete('/api/cities/:id', (req, res) => {
         data: deleted
     });
 });
+
 let searches = [];
+
 app.post('/api/searches', (req, res) => {
     const { city, country, temperature, condition, successful = true } = req.body;
     const searchEntry = {
@@ -221,7 +236,8 @@ app.post('/api/searches', (req, res) => {
         message: 'Search logged',
         data: searchEntry
     });
-}); 
+});
+
 app.get('/api/searches', (req, res) => {
     const { limit = 10 } = req.query;
     const recent = [...searches]
@@ -233,6 +249,7 @@ app.get('/api/searches', (req, res) => {
         data: recent
     });
 });
+
 app.get('/api/searches/stats', (req, res) => {
     const stats = {};
     searches.forEach(s => {
@@ -251,12 +268,12 @@ app.get('/api/searches/stats', (req, res) => {
             avgTemp: Math.round(data.avgTemp * 10) / 10
         }))
         .sort((a, b) => b.count - a.count);
-    
     res.json({
         success: true,
         data: result
     });
 });
+
 app.delete('/api/searches', (req, res) => {
     searches = [];
     res.json({
@@ -264,29 +281,28 @@ app.delete('/api/searches', (req, res) => {
         message: 'Search history cleared'
     });
 });
+
 app.use((req, res) => {
     res.status(404).json({
         success: false,
         message: `Route ${req.method} ${req.url} not found`
     });
 });
+
 app.use((err, req, res, next) => {
-    console.error('❌ Error:', err.stack);
+    console.error('Error:', err.stack);
     res.status(500).json({
         success: false,
         message: 'Internal server error',
         error: err.message
     });
 });
+
 app.listen(PORT, () => {
     console.log(`
-╔═══════════════════════════════════════════╗
-║   🚀 Weather Dashboard API Server        ║
-╠═══════════════════════════════════════════╣
-║   📡 Port: http://localhost:${PORT}        ║
-║   ✅ Test: http://localhost:${PORT}/api/test
-║   📊 Cities: http://localhost:${PORT}/api/cities
-║   ❤️  Health: http://localhost:${PORT}/api/health
-╚═══════════════════════════════════════════╝
+Server running on port ${PORT}
+Test: http://localhost:${PORT}/api/test
+Cities: http://localhost:${PORT}/api/cities
+Health: http://localhost:${PORT}/api/health
     `);
 });
