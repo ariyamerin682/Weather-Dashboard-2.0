@@ -83,3 +83,9 @@ A full-stack weather dashboard application that allows users to search for citie
   lastSearched: Date,    // Last search timestamp
   notes: String          // Optional notes
 }
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/ariyamerin682/Weather-Dashboard-2.0.git
+cd Weather-Dashboard-2.0
