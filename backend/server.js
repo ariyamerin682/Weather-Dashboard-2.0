@@ -9,6 +9,23 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Root route - shows API info
+app.get('/', (req, res) => {
+    res.json({
+        message: 'Weather Dashboard API is running!',
+        endpoints: {
+            health: '/api/health',
+            test: '/api/test',
+            cities: '/api/cities',
+            favorites: '/api/cities/favorites',
+            popular: '/api/cities/popular',
+            searches: '/api/searches',
+            stats: '/api/searches/stats'
+        },
+        documentation: 'https://github.com/ariyamerin682/Weather-Dashboard-2.0'
+    });
+});
+
 app.get('/api/health', (req, res) => {
     res.json({
         status: 'OK',
