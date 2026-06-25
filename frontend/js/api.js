@@ -1,25 +1,15 @@
-// OpenWeatherMap API
-// API Base URL for your backend
 const API_BASE = 'http://localhost:5000/api';
-
-// The rest of your code...
 const WEATHER_API_KEY = '419f904644f31fd8feb98133c859472f';
 const WEATHER_BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
-
-// Fetch weather from OpenWeatherMap and save to backend
 export async function fetchWeather(city) {
     if (!city || city.trim().length === 0) {
         throw new Error('Please enter a valid city name');
     }
-    
     const cleanCity = city.trim();
     const url = `${WEATHER_BASE_URL}?q=${encodeURIComponent(cleanCity)}&appid=${WEATHER_API_KEY}&units=metric`;
-    
     console.log('🌐 Fetching weather for:', cleanCity);
-    
     try {
         const response = await fetch(url);
-        
         if (!response.ok) {
             let errorMessage = '';
             switch (response.status) {
@@ -37,10 +27,7 @@ export async function fetchWeather(city) {
             }
             throw new Error(errorMessage);
         }
-        
         const data = await response.json();
-        
-        // Format the weather data
         const weatherData = {
             name: data.name,
             country: data.sys.country || '',
@@ -53,20 +40,14 @@ export async function fetchWeather(city) {
             lat: data.coord.lat,
             lon: data.coord.lon
         };
-        
-        // Save to backend (don't wait for it)
         saveCityToBackend(weatherData);
         logSearchToBackend(weatherData);
-        
         return weatherData;
-        
     } catch (error) {
         console.error('❌ Weather API Error:', error);
         throw error;
     }
 }
-
-// Save city to backend
 async function saveCityToBackend(weatherData) {
     try {
         const response = await fetch(`${API_BASE}/cities`, {
@@ -86,8 +67,6 @@ async function saveCityToBackend(weatherData) {
         console.warn('⚠️ Could not save city to backend:', error.message);
     }
 }
-
-// Log search to backend
 async function logSearchToBackend(weatherData) {
     try {
         const response = await fetch(`${API_BASE}/searches`, {
