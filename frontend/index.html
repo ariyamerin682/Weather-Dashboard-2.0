@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="background-map" aria-hidden="true"></div>
+    <button id="toggle-dashboard" class="toggle-dashboard" type="button" hidden>
+        Show Weather Dashboard
+    </button>
+    <main id="dashboard-panel">
+        <header>
+            <h1>Weather Dashboard</h1>
+        </header>
+
+        <!-- Search section with proper labeling for accessibility -->
+        <section aria-label="Search weather by city">
+            <form id="search-form" role="search">
+                <label for="city-input">Enter city name:</label>
+                <input type="text" 
+                       id="city-input" 
+                       placeholder="e.g., London, Tokyo, New York"
+                       required>
+                <button type="submit" aria-label="Get weather">Search</button>
+            </form>
+        </section>
+
+        <section id="weather-result" 
+                 aria-live="polite" 
+                 aria-label="Weather information"
+                 hidden>
+            <h2 id="city-name"></h2>
+            <div class="weather-grid">
+                <div class="weather-card">
+                    <h3>Temperature</h3>
+                    <p id="temperature">--°C</p>
+                </div>
+                <div class="weather-card">
+                    <h3>Feels Like</h3>
+                    <p id="feels-like">--°C</p>
+                </div>
+                <div class="weather-card">
+                    <h3>Humidity</h3>
+                    <p id="humidity">--%</p>
+                </div>
+                <div class="weather-card">
+                    <h3>Wind Speed</h3>
+                    <p id="wind-speed">-- m/s</p>
+                </div>
+            </div>
+            <div id="weather-condition">
+                <img id="weather-icon" alt="">
+                <p id="condition-description"></p>
+            </div>
+        </section>
+
+        <!-- Error message area -->
+        <div id="error-message" 
+             role="alert" 
+             aria-live="assertive"
+             hidden></div>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/app.js" type="module"></script>
+</body>
+</html>
