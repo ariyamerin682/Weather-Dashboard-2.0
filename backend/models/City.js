@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const citySchema = new mongoose.Schema({
     name: {
         type: String,
@@ -38,30 +37,21 @@ const citySchema = new mongoose.Schema({
         default: 0
     }
 }, {
-    timestamps: true // Adds createdAt and updatedAt
+    timestamps: true 
 });
-
-// Index for faster searches
 citySchema.index({ name: 1, country: 1 });
-
-// Virtual property: full name
 citySchema.virtual('fullName').get(function() {
     return `${this.name}, ${this.country}`;
 });
-
-// Method: increment search count
 citySchema.methods.incrementSearchCount = function() {
     this.searchCount += 1;
     this.lastSearched = new Date();
     return this.save();
 };
-
-// Static method: get popular cities
 citySchema.statics.getPopularCities = function(limit = 5) {
     return this.find()
         .sort({ searchCount: -1 })
         .limit(limit)
         .select('name country searchCount');
 };
-
 module.exports = mongoose.model('City', citySchema);
