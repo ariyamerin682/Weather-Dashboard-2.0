@@ -1,4 +1,4 @@
-const API_BASE = 'https://weather-dashboard-2-0.onrender.com';
+const API_BASE = 'https://weather-dashboard-2-0.onrender.com/api';
 export async function getCities() {
     const response = await fetch(`${API_BASE}/cities`);
     if (!response.ok) throw new Error('Failed to fetch cities');
