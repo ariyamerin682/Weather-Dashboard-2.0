@@ -3,12 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body, html {
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 #background-map {
     position: fixed;
     top: 0;
@@ -17,7 +15,6 @@ body, html {
     height: 100%;
     z-index: 0;
 }
-
 main {
     position: relative;
     z-index: 1;
@@ -29,19 +26,16 @@ main {
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
-
 h1 {
     text-align: center;
     color: #333;
     margin-bottom: 25px;
 }
-
 form {
     display: flex;
     gap: 10px;
     margin-bottom: 25px;
 }
-
 input {
     flex: 1;
     padding: 12px;
@@ -49,12 +43,10 @@ input {
     border: 2px solid #ddd;
     border-radius: 8px;
 }
-
 input:focus {
     outline: none;
     border-color: #667eea;
 }
-
 button {
     padding: 12px 24px;
     background: #667eea;
@@ -64,24 +56,19 @@ button {
     cursor: pointer;
     font-size: 16px;
 }
-
 button:hover {
     background: #5a67d8;
 }
-
 #result {
     text-align: center;
     padding: 20px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 12px;
 }
-
-/* Loading Spinner */
 .loading-container {
     text-align: center;
     padding: 20px;
 }
-
 .spinner {
     display: inline-block;
     width: 50px;
@@ -92,31 +79,23 @@ button:hover {
     animation: spin 0.8s linear infinite;
     margin-bottom: 10px;
 }
-
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
-/* Empty State */
 .empty-state {
     padding: 30px 20px;
 }
-
 .empty-state .icon {
     font-size: 48px;
 }
-
 .empty-state h3 {
     color: #333;
     margin-bottom: 8px;
 }
-
 .empty-state p {
     color: #888;
 }
-
-/* Error State */
 .error-state {
     padding: 20px;
     background: #fff5f5;
@@ -124,20 +103,15 @@ button:hover {
     border-radius: 12px;
     color: #c53030;
 }
-
 .error-state .icon {
     font-size: 40px;
 }
-
 .error-state h3 {
     color: #c53030;
 }
-
-/* Weather Card */
 .weather-card {
     animation: fadeInUp 0.5s ease-out;
 }
-
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -148,7 +122,6 @@ button:hover {
         transform: translateY(0);
     }
 }
-
 @media (max-width: 600px) {
     main {
         margin: 20px;
