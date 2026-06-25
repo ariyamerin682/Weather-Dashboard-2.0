@@ -1,17 +1,13 @@
 let map = null;
 let currentMarker = null;
-
 export function initMap() {
     console.log('Initializing map...');
-    
     const mapContainer = document.getElementById('background-map');
     if (!mapContainer) {
         console.error('Map container not found!');
         return;
     }
-    
     map = L.map('background-map').setView([20, 0], 2);
-    
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; CartoDB',
         subdomains: 'abcd',
@@ -21,7 +17,6 @@ export function initMap() {
     
     console.log('Map initialized successfully!');
 }
-
 export function showLoading(resultDiv) {
     resultDiv.hidden = false;
     resultDiv.innerHTML = `
@@ -31,7 +26,6 @@ export function showLoading(resultDiv) {
         </div>
     `;
 }
-
 export function showEmptyState(resultDiv) {
     resultDiv.hidden = false;
     resultDiv.innerHTML = `
@@ -47,12 +41,10 @@ export function showEmptyState(resultDiv) {
 }
 export function showError(resultDiv, error) {
     resultDiv.hidden = false;
-
     let icon = '⚠️';
     let title = 'Something went wrong';
     let details = error.message || 'Unknown error';
     let suggestions = '';
-    
     if (error.message && error.message.includes('not found')) {
         icon = '❓';
         title = 'City not found';
@@ -98,7 +90,6 @@ export function showError(resultDiv, error) {
         title = 'Oops!';
         details = error.message || 'An unexpected error occurred';
     }
-    
     resultDiv.innerHTML = `
         <div class="error-state">
             <div class="icon">${icon}</div>
@@ -110,7 +101,6 @@ export function showError(resultDiv, error) {
             </button>
         </div>
     `;
-    
     document.querySelectorAll('[data-city]').forEach(el => {
         el.addEventListener('click', () => {
             document.getElementById('city-input').value = el.textContent;
@@ -124,13 +114,10 @@ export function displayWeather(weatherData, resultDiv) {
         showError(resultDiv, 'No weather data available');
         return;
     }
-    
     if (!resultDiv) {
         console.error('❌ resultDiv is null');
         return;
     }
-    
-    // Safety checks for each property
     const name = weatherData.name || 'Unknown';
     const temp = weatherData.temp || '--';
     const feelsLike = weatherData.feelsLike || '--';
@@ -139,10 +126,7 @@ export function displayWeather(weatherData, resultDiv) {
     const condition = weatherData.condition || 'Unknown';
     const iconCode = weatherData.iconCode || '01d';
     const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-    
     console.log('📊 Displaying weather for:', name);
-    
-    // Update map if coordinates exist
     if (map && weatherData.lat && weatherData.lon) {
         map.setView([weatherData.lat, weatherData.lon], 10);
         if (currentMarker) {
@@ -153,8 +137,6 @@ export function displayWeather(weatherData, resultDiv) {
             .bindPopup(`<b>${name}</b><br>${condition}<br>${temp}°C`)
             .openPopup();
     }
-    
-    // Display the weather
     resultDiv.innerHTML = `
         <div class="weather-card" style="animation: fadeInUp 0.5s ease-out;">
             <h2 style="font-size: 28px; margin-bottom: 5px;">${name}</h2>
