@@ -26,38 +26,47 @@
                 <button type="submit" aria-label="Get weather">Search</button>
             </form>
         </section>
-        <section id="weather-result" 
-                 aria-live="polite" 
-                 aria-label="Weather information"
-                 hidden>
-            <h2 id="city-name"></h2>
-            <div class="weather-grid">
-                <div class="weather-card">
-                    <h3>Temperature</h3>
-                    <p id="temperature">--°C</p>
-                </div>
-                <div class="weather-card">
-                    <h3>Feels Like</h3>
-                    <p id="feels-like">--°C</p>
-                </div>
-                <div class="weather-card">
-                    <h3>Humidity</h3>
-                    <p id="humidity">--%</p>
-                </div>
-                <div class="weather-card">
-                    <h3>Wind Speed</h3>
-                    <p id="wind-speed">-- m/s</p>
-                </div>
-            </div>
-            <div id="weather-condition">
-                <img id="weather-icon" alt="">
-                <p id="condition-description"></p>
-            </div>
-        </section>
-        <div id="error-message" 
-             role="alert" 
-             aria-live="assertive"
-             hidden></div>
+       <!-- Add this div for the app to work -->
+<div id="result">
+    <div class="empty-state">
+        <div class="icon">🔍</div>
+        <h3>Search for a city</h3>
+        <p>Enter a city name above to see current weather conditions and location on the map.</p>
+    </div>
+</div>
+
+<section id="weather-result" 
+         aria-live="polite" 
+         aria-label="Weather information"
+         hidden>
+    <h2 id="city-name"></h2>
+    <div class="weather-grid">
+        <div class="weather-card">
+            <h3>Temperature</h3>
+            <p id="temperature">--°C</p>
+        </div>
+        <div class="weather-card">
+            <h3>Feels Like</h3>
+            <p id="feels-like">--°C</p>
+        </div>
+        <div class="weather-card">
+            <h3>Humidity</h3>
+            <p id="humidity">--%</p>
+        </div>
+        <div class="weather-card">
+            <h3>Wind Speed</h3>
+            <p id="wind-speed">-- m/s</p>
+        </div>
+    </div>
+    <div id="weather-condition">
+        <img id="weather-icon" alt="">
+        <p id="condition-description"></p>
+    </div>
+</section>
+<div id="error-message" 
+     role="alert" 
+     aria-live="assertive"
+     hidden></div>
     </main>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/app.js" type="module"></script>
