@@ -1,14 +1,10 @@
 const City = require('../models/City');
-
-// GET: All cities
 exports.getAllCities = async (req, res) => {
     try {
         const { limit = 10, sort = '-searchCount' } = req.query;
-        
         const cities = await City.find()
             .sort(sort)
             .limit(parseInt(limit));
-        
         res.json({
             success: true,
             count: cities.length,
@@ -22,21 +18,17 @@ exports.getAllCities = async (req, res) => {
         });
     }
 };
-
-// GET: Single city by name
 exports.getCity = async (req, res) => {
     try {
         const city = await City.findOne({ 
             name: { $regex: new RegExp(req.params.name, 'i') } 
         });
-        
         if (!city) {
             return res.status(404).json({
                 success: false,
                 message: 'City not found'
             });
         }
-        
         res.json({
             success: true,
             data: city
@@ -49,17 +41,11 @@ exports.getCity = async (req, res) => {
         });
     }
 };
-
-// POST: Create or update city
 exports.createCity = async (req, res) => {
     try {
         const { name, country, lat, lon } = req.body;
-        
-        // Check if city exists
         let city = await City.findOne({ name: { $regex: new RegExp(name, 'i') } });
-        
         if (city) {
-            // Update existing city
             city = await City.findOneAndUpdate(
                 { _id: city._id },
                 { 
@@ -69,15 +55,12 @@ exports.createCity = async (req, res) => {
                 },
                 { new: true }
             );
-            
             return res.json({
                 success: true,
                 message: 'City updated',
                 data: city
             });
         }
-        
-        // Create new city
         city = new City({
             name,
             country,
@@ -86,9 +69,7 @@ exports.createCity = async (req, res) => {
             searchCount: 1,
             lastSearched: new Date()
         });
-        
         await city.save();
-        
         res.status(201).json({
             success: true,
             message: 'City created',
@@ -108,26 +89,21 @@ exports.createCity = async (req, res) => {
         });
     }
 };
-
-// PUT: Update city (e.g., toggle favorite)
 exports.updateCity = async (req, res) => {
     try {
         const updates = req.body;
         const options = { new: true, runValidators: true };
-        
         const city = await City.findByIdAndUpdate(
             req.params.id,
             updates,
             options
         );
-        
         if (!city) {
             return res.status(404).json({
                 success: false,
                 message: 'City not found'
             });
         }
-        
         res.json({
             success: true,
             message: 'City updated',
@@ -141,19 +117,15 @@ exports.updateCity = async (req, res) => {
         });
     }
 };
-
-// DELETE: Remove city
 exports.deleteCity = async (req, res) => {
     try {
         const city = await City.findByIdAndDelete(req.params.id);
-        
         if (!city) {
             return res.status(404).json({
                 success: false,
                 message: 'City not found'
             });
         }
-        
         res.json({
             success: true,
             message: 'City deleted',
@@ -167,13 +139,10 @@ exports.deleteCity = async (req, res) => {
         });
     }
 };
-
-// GET: Favorite cities
 exports.getFavorites = async (req, res) => {
     try {
         const cities = await City.find({ isFavorite: true })
             .sort({ name: 1 });
-        
         res.json({
             success: true,
             count: cities.length,
@@ -187,12 +156,9 @@ exports.getFavorites = async (req, res) => {
         });
     }
 };
-
-// GET: Popular cities
 exports.getPopularCities = async (req, res) => {
     try {
         const cities = await City.getPopularCities();
-        
         res.json({
             success: true,
             data: cities
