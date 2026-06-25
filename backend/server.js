@@ -143,8 +143,7 @@ app.post('/api/cities', (req, res) => {
             message: 'City updated',
             data: existing
         });
-    
-    const newCity = {
+    } 
         id: nextId++,
         name,
         country: country || 'Unknown',
@@ -189,7 +188,6 @@ app.put('/api/cities/:id', (req, res) => {
 app.delete('/api/cities/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const cityIndex = cities.findIndex(c => c.id === id);
-    
     if (cityIndex === -1) {
         return res.status(404).json({
             success: false,
@@ -197,7 +195,6 @@ app.delete('/api/cities/:id', (req, res) => {
         });
     }
     const deleted = cities.splice(cityIndex, 1)[0];
-    
     res.json({
         success: true,
         message: 'City deleted',
@@ -224,10 +221,9 @@ app.post('/api/searches', (req, res) => {
         message: 'Search logged',
         data: searchEntry
     });
-})
+}); 
 app.get('/api/searches', (req, res) => {
     const { limit = 10 } = req.query;
-    
     const recent = [...searches]
         .sort((a, b) => new Date(b.searchTime) - new Date(a.searchTime))
         .slice(0, parseInt(limit));
