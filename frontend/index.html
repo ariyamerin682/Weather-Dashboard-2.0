@@ -16,8 +16,6 @@
         <header>
             <h1>Weather Dashboard</h1>
         </header>
-
-        <!-- Search section with proper labeling for accessibility -->
         <section aria-label="Search weather by city">
             <form id="search-form" role="search">
                 <label for="city-input">Enter city name:</label>
@@ -28,7 +26,6 @@
                 <button type="submit" aria-label="Get weather">Search</button>
             </form>
         </section>
-
         <section id="weather-result" 
                  aria-live="polite" 
                  aria-label="Weather information"
@@ -57,14 +54,11 @@
                 <p id="condition-description"></p>
             </div>
         </section>
-
-        <!-- Error message area -->
         <div id="error-message" 
              role="alert" 
              aria-live="assertive"
              hidden></div>
     </main>
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/app.js" type="module"></script>
 </body>
